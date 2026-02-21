@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends"
+
+[project]
+name = "parallel-mc-transport"
+version = "0.1.0"
+description = "Parallel Monte Carlo neutron transport code for MCFR with CPU, CUDA, and Apple Metal backends"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.21"]
+
+[project.optional-dependencies]
+cpu-jit = ["numba>=0.57"]
+cuda = ["numba>=0.57", "cupy>=12.0"]
+metal = ["metalcompute>=0.2"]
+dev = ["pytest>=7.0", "numpy>=1.21"]
+all = ["numba>=0.57", "metalcompute>=0.2"]
+
+[project.scripts]
+parallel-mc = "parallel_mc.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

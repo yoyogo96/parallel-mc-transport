@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.nbi
+*.nbc
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+# Keep report PDFs (tracked), ignore generated build PDFs
+# report/*.pdf is tracked explicitly via git add -f
+.DS_Store
+*.so
+*.dylib
