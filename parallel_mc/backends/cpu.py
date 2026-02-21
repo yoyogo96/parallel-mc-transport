@@ -478,7 +478,7 @@ if HAS_NUMBA:
         fission_x = np.zeros(max_fission_sites)
         fission_y = np.zeros(max_fission_sites)
         fission_z = np.zeros(max_fission_sites)
-        fission_g = np.zeros(max_fission_sites, dtype=numba.int32)
+        fission_g = np.zeros(max_fission_sites, dtype=np.int32)
         total_fission_count = 0
 
         # Allocate tally arrays

@@ -69,11 +69,38 @@ python -m parallel_mc --validate
 
 ## Performance
 
+Benchmarked on two Apple Silicon generations with identical test conditions (10k particles, 50 batches).
+
+### Apple M1 (baseline)
+
 | Backend | Throughput | Speedup | Hardware |
 |---------|-----------|---------|----------|
-| Pure Python | 451 particles/s | 1x | Single core |
-| Numba + 4 cores | 3,198 particles/s | 7.1x | CPU (4-core) |
-| Apple Metal GPU | 1,400,000 particles/s | 3,100x | M-series GPU |
+| Pure Python / NumPy | 451 particles/s | 1.0x | Single core |
+| Numba JIT + 4 cores | 3,198 particles/s | 7.1x | CPU (4-core) |
+| Apple Metal GPU | 1,400,000 particles/s | 3,104x | M1 GPU (8-core) |
+
+### Apple M4 Max
+
+| Backend | Throughput | Speedup | Wall Time | k_eff |
+|---------|-----------|---------|-----------|-------|
+| Pure Python / NumPy | 592 particles/s | 1.0x | 844.3 s | 1.00582 +/- 0.00184 |
+| Numba JIT + 16 cores | 15,921 particles/s | 26.9x | 31.4 s | 1.00582 +/- 0.00184 |
+| Apple Metal GPU | 926,803 particles/s | 1,565x | 0.5 s | 1.00215 +/- 0.00230 |
+
+### Metal GPU Scaling (M4 Max)
+
+| Particles/batch | Batches | Total Histories | Throughput | Wall Time |
+|-----------------|---------|-----------------|-----------|-----------|
+| 10,000 | 50 | 500K | 926,803 p/s | 0.5 s |
+| 50,000 | 100 | 5M | 2,797,494 p/s | 1.8 s |
+
+### Generation-over-Generation Improvement (M1 vs M4 Max)
+
+| Backend | M1 | M4 Max | Improvement |
+|---------|-----|--------|-------------|
+| Pure Python | 451 p/s | 592 p/s | 1.3x |
+| Numba JIT CPU | 3,198 p/s (4c) | 15,921 p/s (16c) | 5.0x |
+| Metal GPU | 1,400,000 p/s | 2,797,494 p/s | 2.0x |
 
 ## Architecture
 

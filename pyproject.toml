@@ -1,15 +1,18 @@
 [build-system]
 requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.backends"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "parallel-mc-transport"
 version = "0.1.0"
 description = "Parallel Monte Carlo neutron transport code for MCFR with CPU, CUDA, and Apple Metal backends"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 requires-python = ">=3.9"
 dependencies = ["numpy>=1.21"]
+
+[tool.setuptools.packages.find]
+include = ["parallel_mc*"]
 
 [project.optional-dependencies]
 cpu-jit = ["numba>=0.57"]
